@@ -1,0 +1,28 @@
+
+Fri Nov 11 11:27:26 CET 2022
+================================================================================
+Start of user code getDescriptionAsHtml_init
+        // End of user code
+Start of user code getDescriptionAsHtml_setAttributes
+            // End of user code
+Start of user code getDescriptionAsHtmlLargePreview_setAttributes
+            // End of user code
+Start of user code getDescriptionCompact_init
+        //TODO: adjust the preview height & width values from the default values provided above.
+        // End of user code
+Start of user code getDescription
+            // End of user code
+Start of user code getDescriptionAsHtmlSmallPreview_init
+        // End of user code
+Start of user code deleteDescription_init
+        // End of user code
+Start of user code getDescriptionAsHtmlSmallPreview_setAttributes
+            // End of user code
+Start of user code updateDescription_init
+        // End of user code
+Start of user code updateDescription
+                // End of user code
+Start of user code getDescriptionAsHtmlLargePreview_init
+        // End of user code
+Start of user code deleteDescription
+            // End of user code

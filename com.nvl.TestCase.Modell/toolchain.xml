@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oslc4j_tc:Toolchain xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oslc4j_ai="http://org.eclipse.lyo/oslc4j/adaptorInterface" xmlns:oslc4j_tc="http://org.eclipse.lyo/oslc4j/toolChain">
+  <adaptorInterfaces name="OSLC Server TestCases Third Party Tool">
+    <serviceProviderCatalog title="Service Provider Catalog" description="Service Provider Catalog">
+      <serviceProviders title="Service Provider" description="Service Provider">
+        <services domainSpecification="//@specification/@domainSpecifications[name='Quality%20Management']">
+          <creationFactories title="CreationFactory" label="CreationFactory" creationURI="create" resourceTypes="_7VWqwByWEe2gEd00vIg3Pw"/>
+          <queryCapabilities title="QueryCapability" label="QueryCapability" queryBaseURI="query" resourceTypes="_7VWqwByWEe2gEd00vIg3Pw"/>
+          <selectionDialogs title="SelectionDialog" label="SelectionDialog" dialogURI="selector" hintWidth="250" hintHeight="250" resourceTypes="_7VWqwByWEe2gEd00vIg3Pw"/>
+          <creationDialogs title="CreationDialog" label="CreationDialog" dialogURI="creator" hintWidth="250" hintHeight="250" resourceTypes="_7VWqwByWEe2gEd00vIg3Pw"/>
+        </services>
+      </serviceProviders>
+    </serviceProviderCatalog>
+    <webServices name="TestCaseServices" serviceUrlPattern="testCaseServices" resourceUrlPattern="[ResourceType]/{id}" resourceTypes="_7VWqwByWEe2gEd00vIg3Pw" delete="true" update="true"/>
+    <specification/>
+    <configuration xsi:type="oslc4j_ai:MavenServerConfiguration" rootServerBaseUrl="http://localhost:8080/" applicationContextPath="/thirdPartyQmToolAdapter" servletUrlPattern="/services/*" jettyPort="8080">
+      <generalConfiguration filesBasePath="." javaBasePackageName="com.nvl.TestCaseAdapter"/>
+      <projectConfiguration xsi:type="oslc4j_ai:MavenProjectConfiguration" lyoVersion="5.0.0.Final" groupId="com.nvl.oslcAdapers" artifactId="TestCase.HelloWorld" version="0.0.1-SNAPSHOT"/>
+    </configuration>
+  </adaptorInterfaces>
+  <specification>
+    <domainSpecifications name="Dublin Core" namespaceURI="http://purl.org/dc/terms/" namespacePrefix="//@specification/@domainPrefixes[name='dcterms']">
+      <resourceProperties id="_0sboQByREe2gEd00vIg3Pw" title="id" name="identifier" description="A unique identifier for a resource. Assigned by the service provider when a resource is created. Not intended for end-user display." valueType="String"/>
+      <resourceProperties id="_khrwUGQAEe2txb4pUJ3_3w" name="description" valueType="String"/>
+      <resourceProperties id="_GmaIAGZ0Ee2txb4pUJ3_3w" name="title" valueType="String"/>
+    </domainSpecifications>
+    <domainSpecifications name="Quality Management" namespaceURI="http://open-services.net/ns/qm#" namespacePrefix="//@specification/@domainPrefixes[name='oslc_qm']">
+      <resources id="_7VWqwByWEe2gEd00vIg3Pw" name="TestCase" title="Descriptio" description="Description (Test Case) defines the criteria which determine whether a system exhibits the correct behavior under a specific set of circumstances. " resourceProperties="_0sboQByREe2gEd00vIg3Pw _khrwUGQAEe2txb4pUJ3_3w _4MupwBySEe2gEd00vIg3Pw _h2QS0RyZEe2gEd00vIg3Pw _I20MAByUEe2gEd00vIg3Pw _khrwUWQAEe2txb4pUJ3_3w _khrwUmQAEe2txb4pUJ3_3w _GmaIAGZ0Ee2txb4pUJ3_3w _eixBYGQtEe2txb4pUJ3_3w"/>
+      <resourceProperties id="_4MupwBySEe2gEd00vIg3Pw" title="created" name="created" description="Timestamp of resource creation (reference: Dublin Core)." valueType="DateTime"/>
+      <resourceProperties id="_khrwUWQAEe2txb4pUJ3_3w" name="createdby" valueType="String" range="_khzsIGQAEe2txb4pUJ3_3w"/>
+      <resourceProperties id="_khrwUmQAEe2txb4pUJ3_3w" name="owner" valueType="String" range="_khzsIGQAEe2txb4pUJ3_3w"/>
+    </domainSpecifications>
+    <domainSpecifications name="Requirements Management" namespaceURI="http://open-services.net/ns/rm#" namespacePrefix="//@specification/@domainPrefixes[name='oslc_rm']">
+      <resources id="_h2QS0hyZEe2gEd00vIg3Pw" name="Requirement" resourceProperties="_0sboQByREe2gEd00vIg3Pw _4MupwBySEe2gEd00vIg3Pw"/>
+    </domainSpecifications>
+    <domainSpecifications name="NVL QM" namespaceURI="http://nvl.de/customDomains/QM/" namespacePrefix="//@specification/@domainPrefixes[name='nvlQm']">
+      <resourceProperties id="_h2QS0RyZEe2gEd00vIg3Pw" title="docNumber" name="dokumentenNummer" description="Entspricht der eindeutogen Dokumentennummer eines Dokuments aus dem PS-Systems." valueType="String"/>
+      <resourceProperties id="_I20MAByUEe2gEd00vIg3Pw" title="TestLevel" name="testLevel" valueType="String"/>
+    </domainSpecifications>
+    <domainSpecifications name="Person" namespaceURI="http://xmlns.com/foaf/0.1/" namespacePrefix="//@specification/@domainPrefixes[name='foaf']">
+      <resources id="_khzsIGQAEe2txb4pUJ3_3w" name="Person" resourceProperties="_khs-cGQAEe2txb4pUJ3_3w"/>
+      <resourceProperties id="_khs-cGQAEe2txb4pUJ3_3w" name="name" valueType="String"/>
+    </domainSpecifications>
+    <domainSpecifications name="rdf" namespaceURI="http://www.w3.org/1999/02/22-rdf-syntax-ns#" namespacePrefix="//@specification/@domainPrefixes[name='rdf']">
+      <resourceProperties id="_eixBYGQtEe2txb4pUJ3_3w" name="object" occurs="zeroOrMany" valueType="Resource"/>
+      <resourceProperties id="_GCvLgGZ6Ee2txb4pUJ3_3w" name="type" valueType="String"/>
+    </domainSpecifications>
+    <domainPrefixes name="dcterms"/>
+    <domainPrefixes name="oslc_qm"/>
+    <domainPrefixes name="oslc_rm"/>
+    <domainPrefixes name="nvlQm"/>
+    <domainPrefixes name="foaf"/>
+    <domainPrefixes name="rdf"/>
+  </specification>
+  <vocabularies>
+    <vocabularies label="Vocabulary1" preferredNamespacePrefix="vocab1">
+      <classes name="Class1" label="Class 1" type="//@vocabularies/@vocabularies[label='Vocabulary1']/@classes[name='Class2']"/>
+      <classes name="Class2" label="Class 2"/>
+      <classes/>
+      <properties name="Property1" label="Property 1"/>
+    </vocabularies>
+  </vocabularies>
+</oslc4j_tc:Toolchain>

@@ -1,0 +1,250 @@
+<Module specificationVersion="2.0">
+<ModulePrefs title="Attributes" height="700" scrolling="true">
+	<Optional feature="com.ibm.rdm.rm.api"/>
+</ModulePrefs>
+<Content type="html">
+	<![CDATA[
+<!DOCTYPE html>
+<html>
+<style>
+	.rahmen {
+		position: relative;
+	  }
+	  .imRahmenZentriert{
+		height:100px;
+		width:200px;
+		background: red;
+		margin:auto;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translateY(-50%);
+		transform: translateX(-50%);
+	  }
+	  dialog:not([open]) {
+		display: none;
+	  }
+	  
+	  /* Styling der geöffneten Popup-Box */
+	  dialog[open] { 
+		width: 20em; 
+		background: #fffbf0; 
+		border: thin solid #e7c157;
+		margin: 5em auto;
+	  }
+	  dialog::backdrop { 
+		background: hsl(201 50% 40% /.5) ;
+	  }
+	  
+</style>
+<button id="open-dialog">Zeige die Dialog-Box</button>
+ 
+
+
+<iframe src="http://localhost:8080/thirdPartyQmToolAdapter" title="Adapter">
+	<script>
+		async function sentLinkRequestToAdapter(){
+		let rdfFileOslcTest = '<?xml version="1.0" encoding="UTF-8"?>'+
+		'<rdf:RDF'+
+		'    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"'+
+		'    xmlns:dcterms="http://purl.org/dc/terms/"'+
+		'    xmlns:oslc_data="http://open-services.net/ns/servicemanagement/1.0/"'+
+		'    xmlns:oslc="http://open-services.net/ns/core#"'+
+		'    xmlns:oslc_qm="http://open-services.net/ns/qm#"'+
+		'    xmlns:nvlQm="http://nvl.de/customDomains/QM/"'+
+		'    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"'+
+		'    xmlns:foaf="http://xmlns.com/foaf/0.1/">'+
+		'  <oslc_qm:TestCase rdf:about="http://localhost:8080/thirdPartyQmToolAdapter/services/testCaseServices/TestCase/3206">'+
+		'    <nvlQm:dokumentenNummer>13810-1100-Q-201-000</nvlQm:dokumentenNummer>'+
+		'    <dcterms:title>Schiffskörper mit Aufbauten und Flexdeck</dcterms:title>'+
+		'    <dcterms:identifier>3206</dcterms:identifier>'+
+		'    <nvlQm:testLevel>System Test</nvlQm:testLevel>'+
+		'    <oslc_qm:validatesRequirement rdf:resource="https://jazztemp.softacus.com:9443/rm/resources/BI_ozz9oDfyEe2o_e5RcnlxFg"/>'+
+		'    <oslc_qm:created rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"'+
+		'    >2022-06-07T11:43:37.771Z</oslc_qm:created>'+
+		'  </oslc_qm:TestCase>'+
+		'</rdf:RDF>';
+
+		let promiseFunktion = await fetch('http://localhost:8080/thirdPartyQmToolAdapter/services/testCaseServices/TestCase/3206', {
+        	method: 'PUT',
+            headers: {
+            	'OSLC-Core-Version': '2.0',
+				'Accept': 'application/rdf+xml',
+                'Content-Type': 'application/rdf+xml'
+            },
+    		resolveWithFullResponse: true,
+            body: rdfFileOslcTest
+		});
+		let res = await promiseFunktion;
+	}
+	sentLinkRequestToAdapter();
+	
+	</script>
+</iframe>
+<script>
+
+		var currentSelection;
+		
+		RM.Event.subscribe(RM.Event.ARTIFACT_SELECTED, function(refs){
+			currentSelection = refs;
+		});
+	async function test(urlAnf, urlTestCase, urlComponent){
+	rdfFileOslcTest = '<rdf:RDF xmlns:rm="http://www.ibm.com/xmlns/rdm/rdf/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'+
+	'	<rm:Link rdf:about="">'+
+	'		<rdf:subject rdf:resource="'+urlAnf+'"/>'+
+	'		<rdf:object rdf:resource="'+urlTestCase+'"/>'+
+	'		<rdf:predicate rdf:resource="http://open-services.net/ns/rm#validatedBy"/>'+
+	'		<rm:suspectSubjectCleared/>'+
+	'		<rm:suspectObjectCleared/>'+
+	'		<rdf:type rdf:resource="http://www.ibm.com/xmlns/rdm/rdf/Link"/>'+
+	'		<rdf:value rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></rdf:value>'+
+	'		<rm:hasAttrVal rdf:parseType="Resource">'+
+	'			<rm:hasAttrDef rdf:resource="http://purl.org/dc/terms/title"/>'+
+	'			<rdf:value>3729: Wiegen des Fahrzeugs</rdf:value>'+
+	'		</rm:hasAttrVal>'+
+	'	</rm:Link>'+
+	'</rdf:RDF>';
+
+	let promiseFunktion = await fetch('https://jazztemp.softacus.com:9443/rm/links', {
+		method: 'POST',
+  		headers: {
+			'OSLC-Core-Version': '2.0',
+      			'Accept': 'application/rdf+xml',
+			'doorsrp-request-type': "private",
+  			'net.jazz.jfs.owning-context': urlComponent,
+   			'Content-Type': 'application/rdf+xml'
+  		},
+    	resolveWithFullResponse: true,
+	  	body: rdfFileOslcTest
+		}).then(function(response) {
+	    		return response.text().then(function(text) {
+	      		console.log(text);
+	 	   	});
+	  	});
+	}
+	
+	
+		
+		//Adding the window of the widget an event, that allows a comunication betwenn the Iframe of the selection dialog and the iframe of the widget:
+		for (let i = 0; i < top.window.length; i++) {
+		  	if(top.window[i].document.getElementById("open-dialog")){
+		    	top.window[i].addEventListener("message", async function(event) {
+		    		console.log("Event von Widget");
+					
+				
+			      	
+			      	/*currentSelection.forEach(function(element){
+			      		console.log(element.uri);
+			      	});*/
+			      	var HEADER = "oslc-response:";
+			      	if (event.data.indexOf(HEADER) == 0) {
+	            		var message = event.data.slice(HEADER.length);
+	            		var selectedOslcResources = JSON.parse(message)["oslc:results"];
+	            		for (var n = 0; n < selectedOslcResources.length; n++) {
+							sentLinkRequestToAdapter();
+	            			//test(currentSelection[0].uri,selectedOslcResources[n]["rdf:resource"],currentSelection[0].componentUri);
+	            		
+	            			/*linkTarget = new RM.ArtifactRef(selectedOslcResources[n]["rdf:resource"]);
+	            			RM.Data.createLink(currentSelection[0],"Link To" ,linkTarget, function(res){console.log(res)});
+	                		//console.log(selectedOslcResources[n]["rdf:resource"]);
+	                		let promiseFunktion = await fetch(selectedOslcResources[n]["rdf:resource"], {
+								method: 'get',
+								headers: {
+									'OSLC-Core-Version': '2.0',
+									'Accept': 'application/rdf+xml'
+								}
+
+							})
+							.then(function(response) {
+    							return response.text().then(function(text) {
+      								console.log(text);
+   						 		});
+  							});*/
+	            		}
+			    	}
+			    	
+			  	});
+			}
+		}
+		
+		//Adding an event that reseives the event of the selected artefact of the selection dialog:
+		top.window.addEventListener("message", (event) => {
+			alert("TopWindow");
+			
+			//fire the event of the widget and by doing so send it the information about the selected artefact
+			for (let i = 0; i < top.window.length; i++) {
+			  if(top.window[i].document.getElementById("open-dialog")){
+			    top.window[i].postMessage(event.data, "*");
+			  }
+			}
+
+
+
+			console.log(event);
+		});
+
+		//Adding an click event that opens the selction dialog
+		document.getElementById("open-dialog").addEventListener("click", () => {
+			//document.getElementById("dialog").showModal();
+			let cssCode = 
+			"height:320px;"+
+			"width:523px;"+
+			"background: white;"+
+			"margin:auto;"+
+			"position: absolute;"+
+			"top: 50%;"+
+			"left: 50%;"+
+			"z-index: 999;"+
+			"transform: translateY(-50%);"+
+			"transform: translateX(-50%);";
+			let rahmenFuerSelectionDialog =
+			"";
+		
+			top.document.getElementById("net-jazz-ajax-WorkbenchRoot").insertAdjacentHTML('beforebegin', '<iframe src="http://localhost:8080/thirdPartyQmToolAdapter/services/testCases/selector#oslc-core-postMessage-1.0" style="'+cssCode+'"></iframe>');
+
+		
+		
+		});
+
+	/*
+	document.getElementById("close-dialog").addEventListener("click", () => {
+		//document.getElementById("dialog").close();
+	});
+	
+1. in Top ein Fester über allem einfügen
+2. Ein SelctionsdialogURL herausginden
+https://jazz.dnet.lan/qm/com.ibm.rqm.oslc.TestCasePicker?projectAreaId=_gpUewPGEEeuzicTllun6Uw&isPLEEnabled=false&enableSavedQuery=true&defaultConfigId=_g4OdifGEEeuzicTllun6Uw#oslc-core-postMessage-1.0
+JSON.parse(a.data.substring(14))['oslc:results'][0]['rdf:resource']
+3. Diesen im Top einblenden
+4. Selcted URL heruasfinden
+window.addEventListener("message", (event) => {alert("test"); console.log(event); a = event});
+5.wie informationen zwischen iframes austauschen?
+in top folgenden code ausführen, um event zu abonieren:
+
+for (let i = 0; i < window.length; i++) {
+  if(window[i].document.getElementById("email")){
+    window[i].addEventListener("message", (event) => {
+      console.log("Event von Widget");
+      console.log(event);
+    });
+  }
+}
+
+in top folgenden code ausführen um event zu feuern:
+
+for (let i = 0; i < window.length; i++) {
+  if(window[i].document.getElementById("email")){
+    window[i].postMessage("test", "*");
+  }
+}
+
+6.Wie externen Link erstellen
+6. Externen Link zu selktierter URL bauen
+7. Put für link erfolgreich testen
+8. in Code einfügen
+*/
+</script>
+</html>
+	]]>
+</Content>
+</Module>

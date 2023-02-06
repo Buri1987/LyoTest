@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    id="WebApp_ID" version="3.0">
+    <display-name>OSLC Server TestCases Third Party Tool</display-name>
+    <context-param>
+        <description>Base URI for the adaptor.</description>
+        <param-name>com.nvl.TestCaseAdapter.servlet.baseurl</param-name>
+        <param-value>http://localhost:8080/</param-value>
+        <!-- Start of user code webxml_baseurl
+        -->
+        <!-- TODO: Add additional configurations here to avoid them be overrriden upon future re-generation -->
+        <!-- End of user code
+        -->
+    </context-param>
+    <!-- Start of user code webxml1
+    -->
+    <!-- TODO: Add additional configurations here to avoid them be overrriden upon future re-generation -->
+    <!-- End of user code
+    -->
+    <listener>
+        <description>Listener for ServletContext lifecycle changes</description>
+        <listener-class>com.nvl.TestCaseAdapter.servlet.ServletListener</listener-class>
+    </listener>
+    <!-- Start of user code webxml2
+    -->
+    <!-- TODO: Add additional configurations here to avoid them be overrriden upon future re-generation -->
+    <!-- End of user code
+    -->
+    <servlet>
+        <servlet-name>JAX-RS Servlet</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>com.nvl.TestCaseAdapter.servlet.Application</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!-- Start of user code webxml3
+    -->
+    <servlet>
+    	<servlet-name>RootServicesService</servlet-name>
+    	<servlet-class>com.nvl.TestCaseAdapter.impl.RootServicesService</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>RootServicesService</servlet-name>
+    	<url-pattern>/rootservices</url-pattern>
+  	</servlet-mapping>
+  	
+  	<servlet>
+    	<servlet-name>RootServicesService2</servlet-name>
+    	<servlet-class>com.nvl.TestCaseAdapter.impl.RootServicesService2</servlet-class>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>RootServicesService2</servlet-name>
+    	<url-pattern>/widget</url-pattern>
+  	</servlet-mapping>
+  	
+    <!-- End of user code
+    -->
+    <servlet-mapping>
+        <servlet-name>JAX-RS Servlet</servlet-name>
+        <url-pattern>/services/*</url-pattern>
+    </servlet-mapping>
+    <!-- Start of user code webxml4
+    -->
+    <filter>
+		<display-name>CredentialsFilter</display-name>
+		<filter-name>CredentialsFilter</filter-name>
+		<filter-class>com.nvl.TestCaseAdapter.impl.CredentialsFilter</filter-class>
+	</filter>
+	<filter>
+    	<filter-name>CORS</filter-name>
+    	<filter-class>
+        	com.thetransactioncompany.cors.CORSFilter
+    	</filter-class>
+
+    	<!-- '*' ist auch der Default -->
+    	<init-param>
+        	<param-name>cors.allowOrigin</param-name>
+        	<param-value>*</param-value>
+    	</init-param>
+    	<init-param>
+        	<param-name>cors.allowSubdomains</param-name>
+        	<param-value>true</param-value>
+    	</init-param>
+    	<init-param>
+        	<param-name>cors.supportedMethods</param-name>
+        	<param-value>"GET, POST, HEAD, OPTIONS"</param-value>
+    	</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CredentialsFilter</filter-name>
+		<url-pattern>/services/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+    	<filter-name>CORS</filter-name>
+    	<url-pattern>*</url-pattern>
+	</filter-mapping>
+    <!-- End of user code
+    -->
+</web-app>

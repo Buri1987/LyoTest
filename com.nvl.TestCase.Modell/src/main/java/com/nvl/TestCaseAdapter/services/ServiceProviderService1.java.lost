@@ -1,0 +1,19 @@
+
+Fri Nov 11 11:27:26 CET 2022
+================================================================================
+Start of user code DescriptionSelector_setResponse
+                    //TODO: Add any other attributes that are to be displayed in the search result
+                    // End of user code
+Start of user code DescriptionCreator
+        // End of user code
+Start of user code queryDescriptionsAsHtml
+        // End of user code
+Start of user code queryDescriptions
+        // Here additional logic can be implemented that complements main action taken in OSLCServerTestCasesThirdPartyToolManager
+        // End of user code
+Start of user code DescriptionSelector_init
+        // End of user code
+Start of user code queryDescriptionsAsHtml_setAttributes
+            // End of user code
+Start of user code DescriptionSelector_setAttributes
+        // End of user code

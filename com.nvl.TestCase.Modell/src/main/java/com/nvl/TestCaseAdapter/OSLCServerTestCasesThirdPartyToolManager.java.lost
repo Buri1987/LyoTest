@@ -1,0 +1,38 @@
+
+Fri Nov 11 11:27:25 CET 2022
+================================================================================
+Start of user code DescriptionSelector
+        // TODO Implement code to return a set of resources, based on search criteria 
+        // An empty List should imply that no resources where found.
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code getDescription
+        // TODO Implement code to return a resource
+        // return 'null' if the resource was not found.
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code getETagFromDescription
+        // TODO Implement code to return an ETag for a particular resource
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code queryDescriptions
+        // TODO Implement code to return a set of resources.
+        // An empty List should imply that no resources where found.
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code createDescription
+        // TODO Implement code to create a resource
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code updateDescription
+        // TODO Implement code to update and return a resource
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code createDescriptionFromDialog
+        // TODO Implement code to create a resource
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
+Start of user code deleteDescription
+        // TODO Implement code to delete a resource
+        // If you encounter problems, consider throwing the runtime exception WebApplicationException(message, cause, final httpStatus)
+        // End of user code
